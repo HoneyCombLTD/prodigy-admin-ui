@@ -47,7 +47,7 @@ ADD ./download.conf /etc/nginx/include/download.conf
 
 RUN cd /home/${container_user}
 
-ADD dist ${base_path}
+ADD dist/admin ${base_path}
 
 # install the needed packages including wget and a unzip library 
 #RUN apt-get update -y && apt-get install -y wget && apt-get install -y unzip
