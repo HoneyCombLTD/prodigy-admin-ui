@@ -35,7 +35,9 @@
         }
     },
     "dashboard": {
-        "welcomeMessage":"مرحبا بكم في بوابة الادارية Mosip!"
+        "welcomeMessage":"مرحبا بكم في بوابة الادارية Mosip!",
+        "detailedMessage1": "NATIONAL IDENTIFICATION & REGISTRATION AUTHORITY",
+        "detailedMessage2": "ADMINISTRATOR PORTAL"
     },
     "center": {
         "title":"مراكز",

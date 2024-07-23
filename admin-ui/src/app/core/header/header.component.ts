@@ -1,43 +1,47 @@
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from "@angular/core";
 
-import { SideMenuService } from '../services/side-menu.service';
-import { TranslateService } from '@ngx-translate/core';
-import { AppConfigService } from 'src/app/app-config.service';
-import { HeaderService } from '../services/header.service';
-import { DataStorageService } from '../services/data-storage.service';
-import { version } from 'package.json';
+import { SideMenuService } from "../services/side-menu.service";
+import { TranslateService } from "@ngx-translate/core";
+import { AppConfigService } from "src/app/app-config.service";
+import { HeaderService } from "../services/header.service";
+import { DataStorageService } from "../services/data-storage.service";
+import { version } from "package.json";
 
-import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
-import { MatDialog } from '@angular/material';
+import { DialogComponent } from "src/app/shared/dialog/dialog.component";
+import { MatDialog } from "@angular/material";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "app-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent implements OnInit {
   @Input() screenResize: number;
 
   profile = {
-    type: 'profile',
-    name: 'Joan Doe',
-    zone: 'Zonal Admin',
-    profileImg: './assets/images/profile.png',
+    type: "profile",
+    name: "Joan Doe",
+    zone: "Zonal Admin",
+    profileImg: "./assets/images/profile.png",
     menuList: [
       {
         displayName: {
-          eng: 'Logout',
-          ara: 'تسجيل خروج',
-          fra: 'Se déconnecter'
+          eng: "Logout",
+          ara: "تسجيل خروج",
+          fra: "Se déconnecter",
         },
-        route: null
-      }
-    ]
+        route: null,
+      },
+    ],
   };
-
+  tiles = [
+    { text: " ", cols: 1, rows: 2, border: "1px", color: "white" },
+    { text: " ", cols: 3, rows: 1, border: "1px double red", color: "#B71C1C" },
+    { text: " ", cols: 3, rows: 1, border: "0px double green", color: "#1B5E20"},
+  ];
   zone: string;
-  appVersion :"";
+  appVersion: "";
   popupMessages: any;
   serverError: any;
   constructor(
@@ -49,40 +53,41 @@ export class HeaderComponent implements OnInit {
     private dataService: DataStorageService
   ) {
     // tslint:disable-next-line:no-string-literal
-    translateService.use(this.headerService.getUserPreferredLanguage()).subscribe(response => {
-      this.popupMessages = response;
-      this.serverError = response.serverError;
-    });
-    this.appVersion = appConfigService.getConfig()['version'];
+    translateService
+      .use(this.headerService.getUserPreferredLanguage())
+      .subscribe((response) => {
+        this.popupMessages = response;
+        this.serverError = response.serverError;
+      });
+    this.appVersion = appConfigService.getConfig()["version"];
   }
 
   ngOnInit() {
     console.log(this.appVersion);
-    console.log('SreenWidth', this.screenResize);
-    if (this.headerService.getUsername() !== '') {
+    console.log("SreenWidth", this.screenResize);
+    if (this.headerService.getUsername() !== "") {
       this.dataService
-      .getLoggedInUserZone(
-        this.headerService.getUsername(),
-        this.headerService.getUserPreferredLanguage()
-      )
-      .subscribe(response => {
-        if (response.response) {
-          console.log(response.response.zoneName);
-          this.zone = response.response.zoneName;
-        }else{
-            this.dialog
-              .open(DialogComponent, {
-                width: '650px',
-                data: {
-                  case: 'NOZONE',
-                  title: this.popupMessages.genericmessage.errorLabel,
-                  message: this.serverError[response.errors[0].errorCode],
-                  btnTxt: this.popupMessages.genericmessage.successButton
-                },
-                disableClose: true
-              });
+        .getLoggedInUserZone(
+          this.headerService.getUsername(),
+          this.headerService.getUserPreferredLanguage()
+        )
+        .subscribe((response) => {
+          if (response.response) {
+            console.log(response.response.zoneName);
+            this.zone = response.response.zoneName;
+          } else {
+            this.dialog.open(DialogComponent, {
+              width: "650px",
+              data: {
+                case: "NOZONE",
+                title: this.popupMessages.genericmessage.errorLabel,
+                message: this.serverError[response.errors[0].errorCode],
+                btnTxt: this.popupMessages.genericmessage.successButton,
+              },
+              disableClose: true,
+            });
           }
-      });
+        });
     }
   }
 }

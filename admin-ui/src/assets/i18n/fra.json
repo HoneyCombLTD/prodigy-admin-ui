@@ -35,7 +35,9 @@
 		}
 	},
 	"dashboard": {
-		"welcomeMessage": "Bienvenue sur le portail d'administration Mosip!"
+		"welcomeMessage": "Bienvenue sur le portail d'administration Mosip!",
+		"detailedMessage1": "NATIONAL IDENTIFICATION & REGISTRATION AUTHORITY",
+    	"detailedMessage2": "ADMINISTRATOR PORTAL"
 	},
 	"center": {
 		"title": "Centres",

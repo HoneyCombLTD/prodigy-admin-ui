@@ -10,6 +10,12 @@
         margin-bottom: 10px;
     }
     .discription {
-        font-size: mat-font-size($custom-typography, caption)
-    }
+        //  font-size: mat-font-size($custom-typography, caption);
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        vertical-align: middle;
+        /* UX enhancement */
+        // padding-left: 4%;
+        /* UX enhancement end */
+      }
 }
